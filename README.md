@@ -5,5 +5,5 @@ A toy project written in Kotlin and Spring Boot to generate _very valuable_ jarg
 To run:
 
 ```
-gradle bootRun
+git@github.com:theothermattm/kotlin-jvm-jargon-generator.gitgradle bootRun
 ```
