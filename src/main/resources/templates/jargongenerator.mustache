@@ -1,23 +1,39 @@
 <html>
 <head>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
    <title>JVM Jargon Generator 1.0</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-   <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" type="image/jpg" href="images/favicon.ico"/>
+   <link rel="stylesheet" type="text/css" rel="stylesheet" media="screen,projection" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="shortcut icon" type="image/jpg" href="static/images/favicon.ico"/>
 </head>
 
 <body>
   <header>
-      <h1 class="header center blue-text text-lighten-2">JVM Jargon Generator v1.0</h1>
+      <div id="header-banner" >
+          <div class="section">
+              <div class="container center">
+                  <div class="row center">
+                      <h1 class="header center blue-text">JVM Jargon Generator v1.0</h1>
+                  </div>
+              </div>
+          </div>
+      </div>
   </header>
   <main>
-  <div id="index-banner" class="parallax-container">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <br><br>
-        <div class="row center">
-          <h2 class="header col s12 light" id="jargon">{{jargon}}</h2>
-        </div>
+      <div id="index-banner" class="parallax-container">
+          <div class="section">
+              <div class="container center">
+                  <div class="row center">
+                      <h2 class="header center blue-text text-lighten-2" id="jargon">{{jargon}}</h2>
+                  </div>
+              </div>
+          </div>
+          <div class="parallax"><img src="static/images/magic-finger.jpg" alt="Unsplashed background img 1"></div>
+      </div>
+      </header>
+
+  <div class="container">
+      <div class="section">
           <div class="row center">
               <a id="more-jargon-button" class="btn-large waves-effect waves-light blue lighten-1">Get more jargon</a>
           </div>
@@ -26,11 +42,9 @@
           </div>
           <br><br>
       </div>
-    </div>
-      <div class="parallax"><img src="images/magic-finger.jpg" alt="Unsplashed background img 1"></div>
   </div>
-     <div class="container">
-        <div class="section">
+      <div class="container">
+          <div class="section">
 
           <!--   Icon Section   -->
           <div class="row">
@@ -65,7 +79,7 @@
           <div class="container">
               <div class="footer-copyright">
                   <div class="container">
-                      Made by <a href="https://code.theothermattm.com">Matt</a> in <a href="https://kotlinlang.org/">Kotlin</a> and <a href="https://spring.io/projects/spring-boot">Spring Boot</a> using a template from <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize CSS</a>
+                      Made by <a href="https://code.theothermattm.com">Matt</a> in <a href="https://kotlinlang.org/">Kotlin</a> and <a href="https://ktor.io/">Ktor</a> using a template from <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize CSS</a>
                   </div>
               </div>
           </div>
@@ -73,6 +87,6 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="js/init.js"></script>
+    <script src="static/js/init.js"></script>
 </body>
 </html>
