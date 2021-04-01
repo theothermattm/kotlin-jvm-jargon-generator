@@ -1,0 +1,5 @@
+{
+  "name": "JVM Jargon Generator",
+  "description": "Generates JVM Jargon or your money back!",
+  "image": "heroku/gradle"
+}
