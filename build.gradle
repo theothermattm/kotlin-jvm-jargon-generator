@@ -8,6 +8,17 @@ application {
     mainClass = 'com.theothermattm.ApplicationKt'
 }
 
+jar {
+    archiveBaseName = 'jvm-jargon-generator'
+    archiveVersion = '1.0'
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+    // include all dependencies
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 
 group 'com.theothermattm.jvm-jargon-generator'
 version '1.0-SNAPSHOT'
