@@ -64,51 +64,49 @@ resource "aws_ecs_task_definition" "main" {
 resource "aws_iam_role" "ecs_task_role" {
   name = "${var.name}-ecsTaskRole"
 
-  assume_role_policy = <<EOF
-{
- "Version": "2012-10-17",
- "Statement": [
-   {
-     "Action": "sts:AssumeRole",
-     "Principal": {
-       "Service": "ecs-tasks.amazonaws.com"
-     },
-     "Effect": "Allow",
-     "Sid": ""
-   }
- ]
-}
-EOF
+  assume_role_policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Action" : "sts:AssumeRole",
+          "Principal" : {
+            "Service" : "ecs-tasks.amazonaws.com"
+          },
+          "Effect" : "Allow",
+          "Sid" : ""
+        }
+      ]
+  })
 }
 
 resource "aws_iam_policy" "dynamodb" {
   name        = "${var.name}-task-policy-dynamodb"
   description = "Policy that allows access to DynamoDB"
 
-  policy = <<EOF
-{
-   "Version": "2012-10-17",
-   "Statement": [
-       {
-           "Effect": "Allow",
-           "Action": [
-               "dynamodb:CreateTable",
-               "dynamodb:UpdateTimeToLive",
-               "dynamodb:PutItem",
-               "dynamodb:DescribeTable",
-               "dynamodb:ListTables",
-               "dynamodb:DeleteItem",
-               "dynamodb:GetItem",
-               "dynamodb:Scan",
-               "dynamodb:Query",
-               "dynamodb:UpdateItem",
-               "dynamodb:UpdateTable"
-           ],
-           "Resource": "*"
-       }
-   ]
-}
-EOF
+  policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "dynamodb:CreateTable",
+            "dynamodb:UpdateTimeToLive",
+            "dynamodb:PutItem",
+            "dynamodb:DescribeTable",
+            "dynamodb:ListTables",
+            "dynamodb:DeleteItem",
+            "dynamodb:GetItem",
+            "dynamodb:Scan",
+            "dynamodb:Query",
+            "dynamodb:UpdateItem",
+            "dynamodb:UpdateTable"
+          ],
+          "Resource" : "*"
+        }
+      ]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment" {
@@ -118,42 +116,26 @@ resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment" {
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "${var.name}-ecsTaskExecutionRole"
 
-  assume_role_policy = <<EOF
-{
- "Version": "2012-10-17",
- "Statement": [
-   {
-     "Action": "sts:AssumeRole",
-     "Principal": {
-       "Service": "ecs-tasks.amazonaws.com"
-     },
-     "Effect": "Allow",
-     "Sid": ""
-   }
- ]
-}
-EOF
+  assume_role_policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Action" : "sts:AssumeRole",
+          "Principal" : {
+            "Service" : "ecs-tasks.amazonaws.com"
+          },
+          "Effect" : "Allow",
+          "Sid" : ""
+        }
+      ]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attachment" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
-
-data "aws_subnet_ids" "public_subnet_ids" {
-  vpc_id = aws_vpc.main.id
-  tags = {
-    Tier = "public"
-  }
-}
-
-data "aws_security_groups" "service_sg" {
-  filter {
-    name   = "group-name"
-    values = ["${var.name}-sg-task-${var.environment}"]
-  }
-}
-
 resource "aws_ecs_service" "main" {
   name                               = "${var.name}-service-${var.environment}"
   cluster                            = aws_ecs_cluster.main.id
@@ -165,9 +147,8 @@ resource "aws_ecs_service" "main" {
   scheduling_strategy                = "REPLICA"
 
   network_configuration {
-    security_groups  = data.aws_security_groups.service_sg.ids
-    subnets          = data.aws_subnet_ids.public_subnet_ids.ids
-    assign_public_ip = true
+    security_groups = aws_security_group.ecs_tasks.*.id
+    subnets         = aws_subnet.private.*.id
   }
 
   load_balancer {
