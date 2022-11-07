@@ -21,6 +21,11 @@ fun Application.module() {
 	install(Mustache) {
 		mustacheFactory = DefaultMustacheFactory("templates")
 	}
+
+	val dbUser = environment.config.property("ktor.database.DATABASE_USER")
+	val dbPassword = environment.config.property("ktor.database.DATABASE_PASSWORD")
+	val dbURLRaw = environment.config.property("ktor.database.DATABASE_URL_NO_USER")
+	val database = DatabaseFactory.init(dbURLRaw?.getString(), dbUser?.getString(), dbPassword?.getString())
 	routing {
 		static("/static") {
 			resources("static")
