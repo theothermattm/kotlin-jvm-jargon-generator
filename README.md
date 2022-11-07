@@ -2,10 +2,10 @@
 
 A toy project written in Kotlin and [Ktor](https://ktor.io/) to generate _very valuable_ jargon for you.
 
-To see it in action: [https://jvm-jargon-generator.herokuapp.com/](https://jvm-jargon-generator.herokuapp.com/)
+To see it in action: [https://kotlin-jvm-jargon-generator.fly.dev/](https://kotlin-jvm-jargon-generator.fly.dev/)
 
 To run:
 
 ```
-git@github.com:theothermattm/kotlin-jvm-jargon-generator.gitgradle bootRun
+./gradlew run
 ```

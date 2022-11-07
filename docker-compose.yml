@@ -1,0 +1,10 @@
+version: "3"
+services:
+  jargon-generator:
+    build:
+      context: .
+    container_name: kotlin-jvm-jargon-generator 
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
