@@ -15,4 +15,7 @@ class DAOFacadeImpl {
     suspend fun allJargon(): List<Jargon> = dbQuery {
         JargonEntries.selectAll().map(::resultRowToJargon)
     }
+
 }
+
+val dao = DAOFacadeImpl()

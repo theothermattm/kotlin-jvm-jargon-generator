@@ -9,5 +9,6 @@ object JargonEntries : Table() {
     val type = varchar("type", 128)
     val value = text("value")
 
+    override val tableName = "jargon_entry"
     override val primaryKey = PrimaryKey(id)
 }

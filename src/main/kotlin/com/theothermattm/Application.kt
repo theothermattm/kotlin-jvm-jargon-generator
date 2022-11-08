@@ -8,6 +8,7 @@ import io.ktor.mustache.Mustache
 import io.ktor.mustache.MustacheContent
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlinx.coroutines.runBlocking
 
 import io.ktor.serialization.json
 
@@ -25,17 +26,23 @@ fun Application.module() {
 	val dbUser = environment.config.property("ktor.database.DATABASE_USER")
 	val dbPassword = environment.config.property("ktor.database.DATABASE_PASSWORD")
 	val dbURLRaw = environment.config.property("ktor.database.DATABASE_URL_NO_USER")
-	val database = DatabaseFactory.init(dbURLRaw?.getString(), dbUser?.getString(), dbPassword?.getString())
+	DatabaseFactory.init(dbURLRaw?.getString(), dbUser?.getString(), dbPassword?.getString())
+	val jargonGenerator = JargonGenerator()
+	runBlocking {
+		jargonGenerator.init()
+	}
 	routing {
 		static("/static") {
 			resources("static")
 		}
 
 		get("/") {
-			call.respond(MustacheContent("jargongenerator.mustache", mapOf("jargon" to JargonGenerator.generateJargon().jargon)))
+			println("Loading jargon page")
+			call.respond(MustacheContent("jargongenerator.mustache", mapOf("jargon" to jargonGenerator.generateJargon().jargon)))
 		}
 		get("/api/jargon") {
-			call.respond(JargonGenerator.generateJargon())
+			println("Getting jargon")
+			call.respond(jargonGenerator.generateJargon())
 		}
 	}
 

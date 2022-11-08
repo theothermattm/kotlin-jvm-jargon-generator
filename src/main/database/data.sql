@@ -18,3 +18,6 @@ INSERT INTO "public"."jargon_entry" ("type", "value") VALUES ('SIZE_ADJECTIVE', 
 INSERT INTO "public"."jargon_entry" ("type", "value") VALUES ('VALUE', 'value');
 INSERT INTO "public"."jargon_entry" ("type", "value") VALUES ('VALUE', 'profit');
 INSERT INTO "public"."jargon_entry" ("type", "value") VALUES ('VALUE', 'satisfaction');
+INSERT INTO "public"."jargon_entry" ("type", "value") VALUES ('TYPE_ORGANIZATION', 'Enterprise');
+INSERT INTO "public"."jargon_entry" ("type", "value") VALUES ('TYPE_ORGANIZATION', 'Organization');
+INSERT INTO "public"."jargon_entry" ("type", "value") VALUES ('TYPE_ORGANIZATION', 'Business');
