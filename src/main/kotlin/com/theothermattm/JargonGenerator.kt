@@ -15,6 +15,9 @@ class JargonGenerator {
 
     suspend fun init() {
         println("initiating Jargon from database")
+
+        // TODO probably a better way to do this.
+        // not much data though
         val jargons = dao.allJargon()
 
         for( jargon in jargons ) {

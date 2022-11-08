@@ -9,8 +9,9 @@ import org.jetbrains.exposed.sql.transactions.experimental.*
 object DatabaseFactory {
     fun init(dbURLRaw : String, dbUser : String, dbPassword : String) {
         val driverClassName = "org.postgresql.Driver"
-        val jdbcURL = "jdbc:${dbURLRaw}?user=${dbUser}&password=${dbPassword}"
-        val database = Database.connect(jdbcURL, driverClassName)
+        val jdbcURL = "jdbc:${dbURLRaw}"
+        val database = Database.connect(jdbcURL, driver = driverClassName, 
+        user = dbUser, password = dbPassword)
         transaction(database) {
             SchemaUtils.create(JargonEntries)
         }
